@@ -14,10 +14,8 @@ var Storage = function() {
 };
 
 Storage.prototype.add = function(name) {
-    var item = {name: name, id: this.id};
+    var item = {name: name, id: ++this.id};
     this.items.push(item);
-    this.id += 1;
-    return item;
 };
 
 var storage = new Storage();
@@ -32,29 +30,34 @@ app.get('/items', function(req, res) {
 app.post('/items', jsonParser, function(req, res) {
 	if(!req.body) {
 		return res.sendStatus(404);
-	};
-	
+	}
+
 	var item = storage.add(req.body.name);
 	res.status(201).json(item);
 });
 
 app.delete('/items/:id', function(req, res) {
+    var id = +req.params.id
    for(var i=0; i <= storage.items.length; i++) {
-       if(i = storage.items[req.params.id].id) {
-         console.log('item found - ID: ' + i);
-         break;  
-       };
-   };
-   storage.items.splice(req.params.id, 1);
-   res.statusCode = 200;
-   return res.send('200');
+       if(id === storage.items[i].id) {
+           storage.items.splice(i, 1);
+           console.log('deleted item:', id)
+           return res.status(200).end()
+
+       }
+   }
+   return res.status(404).end()
 });
 
 app.put('/items/:id', jsonParser, function(req,res) {
-
-    storage.items[req.params.id].name = req.body.name;
-    
-    return res.sendStatus(202);
+    var id = +req.params.id
+    for (var i = 0, len = storage.items.length; i < len; i++) {
+        if (id === storage.items[i].id) {
+            storage.items[i].name = req.body.name
+            return res.status(202).end()
+        }
+    }
+    return res.status(404).end()
 });
 
 app.listen(process.env.PORT || port, function(){
