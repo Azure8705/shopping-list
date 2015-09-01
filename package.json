@@ -1,0 +1,23 @@
+{
+  "name": "shopping-list",
+  "version": "1.0.0",
+  "description": "Shopping List",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure8705/shopping-list.git"
+  },
+  "author": "Kevin Liwag - 2015",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Azure8705/shopping-list/issues"
+  },
+  "homepage": "https://github.com/Azure8705/shopping-list#readme",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3"
+  }
+}
