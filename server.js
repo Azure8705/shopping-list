@@ -38,16 +38,19 @@ app.post('/items', jsonParser, function(req, res) {
 });
 
 app.delete('/items/:id', function(req, res) {
-   if(storage.items.length <= req.params.id) {
-       res.statusCode = 404;
-       return res.send('Error 404: Not Found')
+   for(var i=0; i <= storage.items.length; i++) {
+       if(i = storage.items[req.params.id].id) {
+         console.log('item found - ID: ' + i);
+         break;  
+       };
    };
    storage.items.splice(req.params.id, 1);
-   res.json(true);
+   res.statusCode = 200;
+   return res.send('200');
    
 });
 
-app.listen(process.env.PORT || port);
-
-console.log("Shopping List Server - Active on " + port);
-console.log("Press Control+C to close");
+app.listen(process.env.PORT || port, function(){
+    console.log("Shopping List Server - Active on " + port);
+    console.log("Press Control+C to close");
+});
