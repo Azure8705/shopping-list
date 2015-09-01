@@ -3,6 +3,11 @@ var bodyParser = require('body-parser');
 
 var jsonParser = bodyParser.json();
 
+var app = express();
+    app.use(express.static('public'));
+
+var port = 8080;
+
 var Storage = function() {
     this.items = [];
     this.id = 0;
@@ -20,17 +25,13 @@ storage.add('Broad beans');
 storage.add('Tomatoes');
 storage.add('Peppers');
 
-var app = express();
-var port = 8080;
-app.use(express.static('public'));
-
 app.get('/items', function(req, res) {
     res.json(storage.items);
 });
 
 app.post('/items', jsonParser, function(req, res) {
 	if(!req.body) {
-		return res.sendStatus(400);
+		return res.sendStatus(404);
 	};
 	
 	var item = storage.add(req.body.name);
@@ -47,7 +48,13 @@ app.delete('/items/:id', function(req, res) {
    storage.items.splice(req.params.id, 1);
    res.statusCode = 200;
    return res.send('200');
-   
+});
+
+app.put('/items/:id', jsonParser, function(req,res) {
+
+    storage.items[req.params.id].name = req.body.name;
+    
+    return res.sendStatus(202);
 });
 
 app.listen(process.env.PORT || port, function(){
