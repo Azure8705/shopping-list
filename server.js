@@ -26,6 +26,7 @@ storage.add('Peppers');
 
 app.get('/items', function(req, res) {
     res.json(storage.items);
+    return res.status(200).end();
 });
 
 app.post('/items', jsonParser, function(req, res) {
