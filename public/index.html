@@ -170,7 +170,7 @@ ShoppingList.prototype.addItem = function(name) {
         dataType: 'json',
         contentType: 'application/json'
     });
-    ajax.done(this.getItems.bind(this));
+    this.getItems();
 };
 
 ShoppingList.prototype.deleteItem = function(id) {
@@ -178,7 +178,7 @@ ShoppingList.prototype.deleteItem = function(id) {
         type: 'DELETE',
         dataType: 'json'
     });
-    ajax.done(this.getItems.bind(this));
+    this.getItems();
 };
 
 ShoppingList.prototype.editItem = function(id, name) {

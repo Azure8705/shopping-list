@@ -16,6 +16,7 @@ var Storage = function() {
 Storage.prototype.add = function(name) {
     var item = {name: name, id: ++this.id};
     this.items.push(item);
+    return item;
 };
 
 var storage = new Storage();
@@ -37,10 +38,10 @@ app.post('/items', jsonParser, function(req, res) {
 });
 
 app.delete('/items/:id', function(req, res) {
-   var id = req.params.id;
+   var id = +req.params.id;
    for(var i=0; i <= storage.items.length; i++) {
-       if(id = storage.items[i].id) {
-         storage.items.cplice(id, 1);
+       if(id === storage.items[i].id) {
+         storage.items.splice(i, 1);
          console.log('Item deleted: ', id);
          return res.status(200).end();  
        };
@@ -49,7 +50,7 @@ app.delete('/items/:id', function(req, res) {
 });
 
 app.put('/items/:id', jsonParser, function(req,res) {
-    var id = req.params.id;
+    var id = +req.params.id;
     for(var i = 0, len = storage.items.length; i < len; i++){
         if(id === storage.items[i].id) {
             storage.items[id].name = req.body.name;
