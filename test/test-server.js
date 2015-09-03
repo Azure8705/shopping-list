@@ -60,5 +60,3 @@ describe('Shopping List', function(){
 	it('should delete an item on delete');
 });
 
-exports.app = app;
-exports.storage = storage;

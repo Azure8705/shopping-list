@@ -65,3 +65,6 @@ app.listen(process.env.PORT || port, function(){
     console.log("Shopping List Server - Active on " + port);
     console.log("Press Control+C to close");
 });
+
+exports.app = app;
+exports.storage = storage;
