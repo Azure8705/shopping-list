@@ -57,11 +57,19 @@ describe('Shopping List', function(){
 	});
 	it('should edit an item on PUT', function(done){
 		chai.request(app)
-			.put('/items/2')
+			.put('/items/1')
+			.send({'name' : 'Spinach'})
 			.end(function(err, res){
 				should.equal(err, null);
 				res.should.have.status(202);
 				storage.items.should.be.a('array');
+				storage.items[1].should.have.property('id');
+				storage.items[1].should.have.property('name');
+				storage.items[1].id.should.be.a('number');
+				storage.items[1].name.should.be.a('string');
+				storage.items[1].name.should.equal('Spinach');
+				
+				
 				done();
 			});
 	});
