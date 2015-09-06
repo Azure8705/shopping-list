@@ -44,6 +44,7 @@ app.delete('/items/:id', function(req, res) {
        if(id === storage.items[i].id) {
          storage.items.splice(i, 1);
          console.log('Item deleted: ', id);
+         console.log(storage.items);
          return res.status(200).end();  
        };
    };

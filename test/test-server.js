@@ -67,12 +67,20 @@ describe('Shopping List', function(){
 				storage.items[1].should.have.property('name');
 				storage.items[1].id.should.be.a('number');
 				storage.items[1].name.should.be.a('string');
-				storage.items[1].name.should.equal('Spinach');
-				
-				
+				storage.items[1].name.should.equal('Spinach');				
 				done();
 			});
 	});
-	it('should delete an item on delete');
+	it('should delete an item on DELETE', function(done){
+		chai.request(app)
+			.delete('/items/2')
+			.end(function(err, res){
+				should.equal(err, null);
+				res.should.have.status(200);
+				storage.items.should.be.a('array');
+				storage.items.should.have.length(3);
+				done();
+			});
+	});
 });
 
